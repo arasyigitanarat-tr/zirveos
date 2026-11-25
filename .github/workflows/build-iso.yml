@@ -1,0 +1,17 @@
+name: ZirveOS ISO
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: ISO olustur
+        run: sudo bash zirveos-iso-olustur.sh
+      - name: ISO yukle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZirveOS-iso
+          path: zirveos/live-image-amd64.hybrid.iso
