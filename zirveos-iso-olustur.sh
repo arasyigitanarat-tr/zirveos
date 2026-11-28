@@ -12,22 +12,12 @@ apt-get install -y live-build debootstrap squashfs-tools xorriso debian-archive-
 rm -rf zirveos && mkdir zirveos && cd zirveos
 
 lb config \
-  --mode debian \
   --distribution bookworm \
-  --mirror-bootstrap http://deb.debian.org/debian/ \
-  --mirror-chroot http://deb.debian.org/debian/ \
-  --mirror-binary http://deb.debian.org/debian/ \
-  --security false \
   --architectures amd64 \
   --binary-images iso-hybrid \
   --bootappend-live "boot=live components quiet splash hostname=zirveos username=zirve" \
   --iso-application "ZirveOS" --iso-volume "ZIRVEOS" \
   --archive-areas "main contrib non-free non-free-firmware"
-
-# Güvenlik güncellemeleri: eski live-build "bookworm/updates" adını arıyor (404),
-# bu yüzden güvenlik deposunu doğru adıyla (bookworm-security) elle ekliyoruz
-mkdir -p config/archives
-echo "deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware" > config/archives/security.list.chroot
 
 # Gerekli paketler: ekran sunucusu + tarayıcı (ZirveOS arayüzü tarayıcıda tam ekran açılır)
 mkdir -p config/package-lists
